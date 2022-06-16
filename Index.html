@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+    <style>
+    </style>
+  </head>
+  <body>
+    <input type="file" id="imageFile" capture="user" accept="image/*">
+
+    <p id="expirationDate"></p>
+  <body>
+
+<script type="text/javascript">
+  window.mdc.autoInit()
+</script>
+
+<script type="text/javascript">
+
+const fileInput = document.querySelector("#imageFile")
+const expirationDate = document.querySelector("#expirationDate")
+
+async function handleInput(e) {
+  expirationDate.textContent = ''
+
+  const body = new FormData()
+
+  body.append('image', e.target.files[0])
+
+  const resp = await fetch(
+    '/url',
+    {
+      method: 'POST',
+      body,
+  })
+
+  if (!resp.ok) alert(resp.statusText)
+
+  fileInput.value = null
+
+  const { date } = await resp.json()
+
+  expirationDate.textContent = `Best before ${date}`
+
+  expirationDate.focus()
+}
+
+fileInput.addEventListener("input", handleInput)
+
+</script>
+
+</html>

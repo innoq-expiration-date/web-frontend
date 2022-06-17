@@ -7,12 +7,39 @@
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
     <style>
+      .center {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .text-wrapper {
+        margin-bottom: -80px;
+        min-height: 100%;
+        width: 100%;
+      }
+      .intro {
+        margin: 20px;
+      }
     </style>
   </head>
-  <body>
-    <input type="file" id="imageFile" capture="environment" accept="image/*">
+  <body class="mdc-typography">
+    <input hidden type="file" id="imageFile" capture="environment" accept="image/*">
 
-    <p id="expirationDate"></p>
+    <div class="text-wrapper">
+      <p class="intro mdc-typography--body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+      <div class="center">
+        <p class="mdc-typography--headline4" id="expirationDate"></p>
+      </div>
+    </div>
+
+    <div class="center">
+      <button id="cameraButton" class="mdc-fab" aria-label="Take a picture" data-mdc-auto-init="MDCRipple">
+        <div class="mdc-fab__ripple"></div>
+        <span class="mdc-fab__icon material-icons">photo_camera</span>
+      </button>
+    </div>
+
   <body>
 
 <script type="text/javascript">
@@ -23,6 +50,9 @@
 
 const fileInput = document.querySelector("#imageFile")
 const expirationDate = document.querySelector("#expirationDate")
+
+document.querySelector("#cameraButton")
+    .addEventListener('click', () => fileInput.click())
 
 async function handleInput(e) {
   expirationDate.textContent = ''

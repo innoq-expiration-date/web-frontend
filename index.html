@@ -13,8 +13,7 @@
         justify-content: center;
       }
       .text-wrapper {
-        margin-bottom: -80px;
-        min-height: 100%;
+        min-height: calc(100vh - 90px);;
         width: 100%;
       }
       .intro {
@@ -23,12 +22,14 @@
       .mdc-deprecated-list {
         width: 100%;
       }
+      .footer {
+        height: 90px;
+      }
     </style>
   </head>
   <body class="mdc-typography">
-    <input hidden type="file" id="imageFile" capture="environment" accept="image/*">
-
     <div class="text-wrapper">
+      <input hidden type="file" id="imageFile" capture="environment" accept="image/*">
       <p class="intro mdc-typography--body1">Pressen Sie den Knopf, um das Mindesthaltbarkeitsdatum zu ermitteln.</p>
 
       <div class="center" id="extractedDates">
@@ -36,13 +37,12 @@
     </div>
 
 
-    <div class="center">
+    <div class="center footer">
       <button id="cameraButton" class="mdc-fab" aria-label="Take a picture" data-mdc-auto-init="MDCRipple">
         <div class="mdc-fab__ripple"></div>
         <span class="mdc-fab__icon material-icons">photo_camera</span>
       </button>
     </div>
-
   <body>
 
 <script type="text/javascript">

@@ -62,7 +62,7 @@ async function handleInput(e) {
   body.append('image', e.target.files[0])
 
   const resp = await fetch(
-    '/url',
+    '/pic',
     {
       method: 'POST',
       body,

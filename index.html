@@ -68,7 +68,10 @@ async function handleInput(e) {
       body,
   })
 
-  if (!resp.ok) alert(resp.statusText)
+  if (!resp.ok) {
+    alert(resp.statusText)
+    return
+  }
 
   fileInput.value = null
 

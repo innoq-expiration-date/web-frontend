@@ -28,10 +28,10 @@
     <div class="text-wrapper">
       <p class="intro mdc-typography--body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-      <div class="center">
-        <p class="mdc-typography--headline4" id="expirationDate"></p>
+      <div class="center" id="extractedDates">
       </div>
     </div>
+
 
     <div class="center">
       <button id="cameraButton" class="mdc-fab" aria-label="Take a picture" data-mdc-auto-init="MDCRipple">
@@ -49,13 +49,33 @@
 <script type="text/javascript">
 
 const fileInput = document.querySelector("#imageFile")
-const expirationDate = document.querySelector("#expirationDate")
+const extractedDates = document.querySelector("#extractedDates")
 
 document.querySelector("#cameraButton")
     .addEventListener('click', () => fileInput.click())
 
+function clearExtractedDates() {
+  extractedDates.innerHTML = ''
+}
+
+function renderExtractedDates(dates = [{ description: 'foo', date: '123' }, { description: 'bar', date: '456' }]) {
+  extractedDates.innerHTML = `
+    <ul class="mdc-list" data-evolution="true">
+    ${dates.reduce((acc, curr) => `
+      ${acc}
+      <li class="mdc-list-item mdc-list-item--with-leading-icon">
+        <i class="material-icons mdc-list-item__start">calendar_month</i>
+        <span class="mdc-list-item__ripple"></span>
+        <span class="mdc-list-item__text">${curr.description} ${curr.date}</span>
+      </li>`, '')}
+    </ul>
+  `
+
+  extractedDates.firstChild.firstChild.focus()
+}
+
 async function handleInput(e) {
-  expirationDate.textContent = ''
+  clearExtractedDates()
 
   const body = new FormData()
 
@@ -75,11 +95,9 @@ async function handleInput(e) {
 
   fileInput.value = null
 
-  const { date } = await resp.json()
+  const { extractedDates } = await resp.json()
 
-  expirationDate.textContent = `Best before ${date}`
-
-  expirationDate.focus()
+  renderExtractedDates(extractedDates)
 }
 
 fileInput.addEventListener("input", handleInput)

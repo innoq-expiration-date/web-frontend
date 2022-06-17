@@ -20,6 +20,9 @@
       .intro {
         margin: 20px;
       }
+      .mdc-deprecated-list {
+        width: 100%;
+      }
     </style>
   </head>
   <body class="mdc-typography">
@@ -58,15 +61,15 @@ function clearExtractedDates() {
   extractedDates.innerHTML = ''
 }
 
-function renderExtractedDates(dates = [{ description: 'foo', date: '123' }, { description: 'bar', date: '456' }]) {
+function renderExtractedDates(dates) {
   extractedDates.innerHTML = `
-    <ul class="mdc-list" data-evolution="true">
+    <ul class="mdc-deprecated-list" data-evolution="true">
     ${dates.reduce((acc, curr) => `
       ${acc}
-      <li class="mdc-list-item mdc-list-item--with-leading-icon">
+      <li class="mdc-deprecated-list-item mdc-list-item--with-leading-icon">
         <i class="material-icons mdc-list-item__start">calendar_month</i>
-        <span class="mdc-list-item__ripple"></span>
-        <span class="mdc-list-item__text">${curr.description} ${curr.date}</span>
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <span class="mdc-deprecated-list-item__text">${curr.description} ${curr.date}</span>
       </li>`, '')}
     </ul>
   `

@@ -74,6 +74,10 @@ function renderExtractedDates(dates = [{ description: 'foo', date: '123' }, { de
   extractedDates.firstChild.firstChild.focus()
 }
 
+function renderMessage(msg) {
+  extractedDates.innerHTML = `<p>${msg}</p>`
+}
+
 async function handleInput(e) {
   clearExtractedDates()
 
@@ -95,7 +99,17 @@ async function handleInput(e) {
 
   fileInput.value = null
 
-  const { extractedDates } = await resp.json()
+  const { extractedDates, errorMessage } = await resp.json()
+
+  if (errorMessage) {
+    renderMessage(errorMessage) 
+    return
+  }
+
+  if (!extractedDates) {
+    renderMessage("Leider nichts gefunden") 
+    return
+  }
 
   renderExtractedDates(extractedDates)
 }
